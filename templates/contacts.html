@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDR — Контакты</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"><a href="{{ url_for('index') }}" style="color:#fff;text-decoration:none;">MDR</a></div>
+        <nav class="nav">
+            <a href="{{ url_for('catalog') }}">Каталог</a>
+            <span class="divider">|</span>
+            <a href="{{ url_for('about') }}">О компании</a>
+            <span class="divider">|</span>
+            <a href="{{ url_for('contacts') }}" class="active">Контакты</a>
+        </nav>
+        <button class="btn-buy" onclick="openModal()">Приобрести</button>
+    </header>
+
+    <main class="contacts-page">
+        <h1 data-aos="fade-down">Контакты</h1>
+        
+        <div class="contacts-content">
+            <div class="contact-info" data-aos="fade-right">
+                <div class="contact-item">
+                    <h3> Адрес</h3>
+                    <p>г. Москва, ул. Авиаторов, 15</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📞 Телефон</h3>
+                    <p>+7 (800) 555-35-35</p>
+                </div>
+                <div class="contact-item">
+                    <h3>✉️ Email</h3>
+                    <p>info@mdr-drones.ru</p>
+                </div>
+                <div class="contact-item">
+                    <h3>🕐 Часы работы</h3>
+                    <p>Пн-Пт: 9:00 - 18:00</p>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper" data-aos="fade-left">
+                <h2>Напишите нам</h2>
+                <form class="contact-form" onsubmit="submitForm(event)">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Телефон">
+                    <textarea placeholder="Сообщение" rows="5" required></textarea>
+                    <button type="submit" class="btn-submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h2>Связаться с нами</h2>
+            <form onsubmit="submitForm(event)">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Телефон" required>
+                <button type="submit" class="btn-submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

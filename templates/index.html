@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDR — Drones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">MDR</div>
+        <nav class="nav">
+            <a href="{{ url_for('catalog') }}">Каталог</a>
+            <span class="divider">|</span>
+            <a href="{{ url_for('about') }}">О компании</a>
+            <span class="divider">|</span>
+            <a href="{{ url_for('contacts') }}">Контакты</a>
+        </nav>
+        <button class="btn-buy" onclick="openModal()">Приобрести</button>
+    </header>
+
+    <main class="hero">
+        <h1 class="title">MDR ULTRA <span class="light">LIGHT</span></h1>
+        <p class="subtitle">Быстрее, легче, эффективнее</p>
+
+        <div class="hero-buttons">
+            <button class="btn-preorder" onclick="openModal()">Оформить предзаказ</button>
+            <button class="btn-details" onclick="scrollToDetails()">Подробнее</button>
+        </div>
+
+        <div class="drone-wrapper">
+            <img src="{{ url_for('static', filename='img/drone.png') }}" 
+                 alt="MDR Drone" 
+                 class="drone-image" 
+                 id="drone-image">
+            <div class="glow-ring"></div>
+        </div>
+
+        <button class="arrow arrow-left" id="prev-btn">←</button>
+        <button class="arrow arrow-right" id="next-btn">→</button>
+    </main>
+
+    <section class="details" id="details">
+        <h2>Технические характеристики</h2>
+        <div class="specs-grid">
+            <div class="spec-card">
+                <div class="spec-number">01</div>
+                <h3>Вес</h3>
+                <p>249 г</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-number">02</div>
+                <h3>Время полёта</h3>
+                <p>До 38 минут</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-number">03</div>
+                <h3>Камера</h3>
+                <p>4K HDR</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-number">04</div>
+                <h3>Дальность</h3>
+                <p>До 12 км</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="drone-list">
+        <div class="drone-list-item">MDR HEAVY</div>
+        <div class="drone-list-item active">MDR ULTRA LIGHT</div>
+        <div class="drone-list-item">MDR SUPERFAST</div>
+    </div>
+
+    <div class="counter">+53</div>
+
+    <div class="modal" id="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h2>Оформить предзаказ</h2>
+            <form onsubmit="submitForm(event)">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Телефон" required>
+                <button type="submit" class="btn-submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        console.log('JavaScript работает!');
+
+        function openModal() {
+            var modal = document.getElementById('modal');
+            modal.style.display = 'flex';
+            console.log('Модалка открыта');
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        function scrollToDetails() {
+            var el = document.getElementById('details');
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            var form = event.target;
+            var data = {
+                name: form.querySelector('input[type="text"]').value,
+                email: form.querySelector('input[type="email"]').value,
+                phone: form.querySelector('input[type="tel"]').value || ''
+            };
+            fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(result) {
+                alert('Готово!');
+                closeModal();
+                form.reset();
+                setTimeout(function() {
+                    window.location.href = result.redirect;
+                }, 1500);
+            })
+            .catch(function(err) {
+                alert('Ошибка: ' + err);
+            });
+        }
+
+        document.getElementById('prev-btn').onclick = function() {
+            alert('← Предыдущий дрон');
+        };
+
+        document.getElementById('next-btn').onclick = function() {
+            alert('Следующий дрон →');
+        };
+    </script>
+</body>
+</html>

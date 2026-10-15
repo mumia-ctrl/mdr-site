@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDR — Каталог</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"><a href="{{ url_for('index') }}" style="color:#fff;text-decoration:none;">MDR</a></div>
+        <nav class="nav">
+            <a href="{{ url_for('catalog') }}" class="active">Каталог</a>
+            <span class="divider">|</span>
+            <a href="{{ url_for('about') }}">О компании</a>
+            <span class="divider">|</span>
+            <a href="{{ url_for('contacts') }}">Контакты</a>
+        </nav>
+        <button class="btn-buy" onclick="openModal()">Приобрести</button>
+    </header>
+
+    <main class="catalog-page">
+        <h1 data-aos="fade-down">Каталог дронов</h1>
+        <p class="catalog-subtitle" data-aos="fade-up" data-aos-delay="200">Выберите модель, которая подходит именно вам</p>
+
+        <div class="catalog-grid">
+            <div class="catalog-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='img/drone.png') }}" alt="MDR HEAVY">
+                </div>
+                <h3>MDR HEAVY</h3>
+                <p class="card-desc">Мощный, надёжный, выносливый. Для профессиональных задач.</p>
+                <div class="card-price">от 149 990 ₽</div>
+                <button class="btn-card" onclick="openModal()">Заказать</button>
+            </div>
+
+            <div class="catalog-card featured" data-aos="fade-up" data-aos-delay="200">
+                <div class="badge">Хит продаж</div>
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='img/drone.png') }}" alt="MDR ULTRA LIGHT">
+                </div>
+                <h3>MDR ULTRA LIGHT</h3>
+                <p class="card-desc">Быстрее, легче, эффективнее. Идеален для путешествий.</p>
+                <div class="card-price">от 89 990 ₽</div>
+                <button class="btn-card" onclick="openModal()">Заказать</button>
+            </div>
+
+            <div class="catalog-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-image">
+                    <img src="{{ url_for('static', filename='img/drone.png') }}" alt="MDR SUPERFAST">
+                </div>
+                <h3>MDR SUPERFAST</h3>
+                <p class="card-desc">Скорость без компромиссов. Для гонок и экстрима.</p>
+                <div class="card-price">от 119 990 ₽</div>
+                <button class="btn-card" onclick="openModal()">Заказать</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h2>Оформить заказ</h2>
+            <form onsubmit="submitForm(event)">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Телефон" required>
+                <button type="submit" class="btn-submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
